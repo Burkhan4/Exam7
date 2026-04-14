@@ -3,7 +3,7 @@ import productService from "../service/product.service";
 
 const AdminPanel = () => {
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false); // eslint-disable-line no-unused-vars
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 

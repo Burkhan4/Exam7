@@ -3,6 +3,7 @@ import RootLayout from './layout/RootLayout';
 import HomePage from './pages/HomePage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import AdminPanel from './pages/AdminPanel';   // ← Yangi qo'shamiz
+import ProductListPage from './pages/ProductListPage';
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
             {
                 path: "products/:id",
                 element: <ProductDetailPage />,
+            },
+            {
+                path: "products/category/:category_id",
+                element: <ProductListPage />,
             },
             {
                 path: "admin",           // ← Admin panel yo'li

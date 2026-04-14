@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react'
-import productService from './service/product.service'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider } from 'react-router-dom'
 import router from './router'
 
+const queryClient = new QueryClient()
+
 function App() {
   return (
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+    </QueryClientProvider>
   )
 }
 
