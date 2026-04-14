@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@theme {
+  /* ─── Breakpoints ───────────────────────────────────────────
+     default  →  mobile  (no min-width, base styles)
+     tablet   →  ≥ 690px
+     desktop  →  ≥ 1240px
+  ─────────────────────────────────────────────────────────── */
+
+  /* Remove Tailwind's built-in sm / md / lg / xl / 2xl */
+  --breakpoint-*: initial;
+
+  --breakpoint-tablet: 782px;
+  --breakpoint-desktop: 1500px;
+
+  /* ─── Container widths ──────────────────────────────────────
+     Use these tokens with max-w-[--container-*] or directly
+     in your own utility classes / CSS.
+  ─────────────────────────────────────────────────────────── */
+  --container-mobile: 100%;
+  --container-tablet: 720px;
+  --container-desktop: 1490px;
+}
+
+@utility container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 16px;
+
+  @media (width >= theme(--breakpoint-tablet)) {
+    max-width: theme(--container-tablet);
+    padding-inline: 0;
+  }
+
+  @media (width >= theme(--breakpoint-desktop)) {
+    max-width: theme(--container-desktop);
+  }
+}
