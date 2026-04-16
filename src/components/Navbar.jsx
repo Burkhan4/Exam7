@@ -27,6 +27,7 @@ const navItems = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState({
     id: null,
     name: "All Categories",
@@ -84,7 +85,7 @@ const Navbar = () => {
       <nav className="shadow-[0px_0px_8px_0px_#33333333] py-4.5">
         <div className="container desktop:pl-90 tablet:pl-30 pl-4 pr-10">
           <div className="flex items-center justify-between">
-            <ul className="max-w-144.75 w-full flex items-center justify-between">
+            <ul className="hidden tablet:flex max-w-144.75 w-full items-center justify-between">
               {navItems.map((item) => (
                 <li key={item.label}>
                   {item.to ? (
@@ -105,7 +106,26 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
-            <div className="flex items-center">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="tablet:hidden flex items-center justify-center w-8 h-8 text-black hover:text-[#7C5334] transition-colors"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+            <div className="tablet:flex hidden items-center">
               <a href="tel:+998901234567">
                 <Phone className="w-5 h-5 duration-200 text-black hover:text-[#7C5334] cursor-pointer" />
               </a>
@@ -117,16 +137,52 @@ const Navbar = () => {
         </div>
       </nav>
 
+      {isMobileMenuOpen && (
+        <div className="tablet:hidden bg-white shadow-lg border-t">
+          <ul className="flex flex-col py-4">
+            {navItems.map((item) => (
+              <li key={item.label} className="px-4 py-2">
+                {item.to ? (
+                  <Link
+                    to={item.to}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-[14px] text-[#000000] font-medium duration-300 transition-all hover:text-[#7C5334]"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a
+                    href="#"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-[14px] text-[#000000] font-medium duration-300 transition-all hover:text-[#7C5334]"
+                  >
+                    {item.label}
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+          <div className="flex items-center px-4 py-2 border-t">
+            <a href="tel:+998901234567" className="flex items-center">
+              <Phone className="w-5 h-5 mr-2 text-black hover:text-[#7C5334]" />
+              <p className="text-[15px] text-[#000000]">
+                +123 ( 456 ) ( 7890 )
+              </p>
+            </a>
+          </div>
+        </div>
+      )}
+
       <section className="relative">
         <div className="container desktop:pl-20 tablet:pl-8 pl-3">
-          <div className="flex items-center justify-between">
-            <img src="/svg/logo.svg" alt="Logo" />
+          <div className="flex flex-col tablet:flex-row items-center justify-between gap-4 tablet:gap-0">
+            <img src="/svg/logo.svg" alt="Logo" className="w-20 tablet:w-auto" />
 
             <div
-              className="relative flex-1 flex justify-center p-10"
+              className="relative flex-1 flex justify-center p-4 tablet:p-10 w-full"
               ref={resultsRef}
             >
-              <div className="relative flex items-center w-full max-w-[600px] h-[45px] bg-white border border-[#BCE3C9] rounded-[4px] font-sans">
+              <div className="relative flex items-center w-full max-w-full tablet:max-w-[600px] h-[45px] bg-white border border-[#BCE3C9] rounded-[4px] font-sans">
                 <input
                   type="text"
                   value={searchText}
@@ -286,9 +342,9 @@ const Navbar = () => {
               )}
             </div>
 
-            <Link to="/cart" className="flex items-center gap-1 pr-4">
+            <Link to="/cart" className="flex items-center gap-1 pr-4 tablet:pr-4">
               <Korsine className="w-6 h-6 duration-200 text-black hover:text-[#7C5334] cursor-pointer" />
-              <p className="text-[#000000] text-[15px] font-medium">Cart</p>
+              <span className="hidden tablet:inline text-[#000000] text-[15px] font-medium">Cart</span>
             </Link>
           </div>
         </div>
