@@ -36,6 +36,10 @@ const HomePage = () => {
     queryFn: () => productService.getProducts({ category_id: 5, limit: 4 }),
   });
 
+  const dailyBestSellsData = Array.isArray(dailyBestSells) ? dailyBestSells : dailyBestSells?.data || [];
+  const specialDishesData = Array.isArray(specialDishes) ? specialDishes : specialDishes?.data || [];
+  const dealsOfDayData = Array.isArray(dealsOfDay) ? dealsOfDay : dealsOfDay?.data || [];
+
   useEffect(() => {
     if (bestSwiper && bestPrevRef.current && bestNextRef.current) {
       bestSwiper.params.navigation.prevEl = bestPrevRef.current;
@@ -222,7 +226,7 @@ const HomePage = () => {
                 }}
                 className="pb-12"
               >
-                {dailyBestSells?.data?.map((product) => (
+                {dailyBestSellsData.map((product) => (
                   <SwiperSlide key={product.id}>
                     <Link
                       to={`/products/${product.id}`}
@@ -337,7 +341,7 @@ const HomePage = () => {
               className="pb-8"
             >
               {/* Taom Cards from API */}
-              {specialDishes?.data?.map((dish) => (
+              {specialDishesData.map((dish) => (
                 <SwiperSlide key={dish.id}>
                   <Link
                     to={`/products/${dish.id}`}
@@ -412,7 +416,7 @@ const HomePage = () => {
           {/* Grid Content */}
           <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-4 gap-6">
             {/* Product Cards from API */}
-            {dealsOfDay?.data?.map((deal) => (
+            {dealsOfDayData.map((deal) => (
               <Link
                 key={deal.id}
                 to={`/products/${deal.id}`}

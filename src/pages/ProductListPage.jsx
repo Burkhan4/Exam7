@@ -20,8 +20,8 @@ const ProductListPage = () => {
   const [selectedCategory, setSelectedCategory] = useState(
     category_id ? Number(category_id) : null,
   );
-  const [priceMin, setPriceMin] = useState(12);
-  const [priceMax, setPriceMax] = useState(56);
+  const [priceMin, setPriceMin] = useState("");
+  const [priceMax, setPriceMax] = useState("");
   const [sort, setSort] = useState("newest");
   const [page, setPage] = useState(1);
   const [activeWeight, setActiveWeight] = useState(null);
@@ -51,8 +51,8 @@ const ProductListPage = () => {
     staleTime: 1000 * 60 * 2,
   });
 
-  const products = data?.data || [];
-  const meta = data?.meta || { page: 1, total_pages: 1, total: 0 };
+  const products = Array.isArray(data) ? data : data?.data || [];
+  const meta = data?.meta || { page: 1, total_pages: 1, total: Array.isArray(data) ? data.length : 0 };
 
   const handleCategorySelect = (id) => {
     setSelectedCategory(id);
@@ -140,6 +140,7 @@ const ProductListPage = () => {
                       value={priceMin}
                       min="0"
                       onChange={(e) => setPriceMin(e.target.value)}
+                      placeholder="Min price"
                       className="w-full rounded-[18px] border border-[#E5E7EB] bg-[#F8FAFC] px-4 py-3 text-[#111827]"
                     />
                   </div>
@@ -150,6 +151,7 @@ const ProductListPage = () => {
                       value={priceMax}
                       min="0"
                       onChange={(e) => setPriceMax(e.target.value)}
+                      placeholder="Max price"
                       className="w-full rounded-[18px] border border-[#E5E7EB] bg-[#F8FAFC] px-4 py-3 text-[#111827]"
                     />
                   </div>
