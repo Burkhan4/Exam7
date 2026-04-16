@@ -19,9 +19,10 @@ class ProductService {
             params.attribute_values.forEach(val => queryParams.append("attribute_values", val));
         }
 
-        const url = `/products?${queryParams.toString()}`;
+        const queryString = queryParams.toString();
+        const url = queryString ? `/products?${queryString}` : "/products";
 
-        console.log("📡 So'rov URL:", url);   // debug uchun
+        console.log("📡 So'rov URL:", url);
 
         try {
             const res = await this.api.get(url);
@@ -32,8 +33,40 @@ class ProductService {
             throw error;
         }
     }
+
+    async getProductById(id) {
+        if (!id) {
+            throw new Error("Product ID is required");
+        }
+
+        const url = `/products/${id}`;
+        console.log("📡 So'rov URL:", url);
+
+        try {
+            const res = await this.api.get(url);
+            console.log("✅ Product detail javobi:", res.data);
+            return res.data;
+        } catch (error) {
+            console.error("❌ API xatolik:", error.response?.data || error.message);
+            throw error;
+        }
+    }
+
+    async createOrder(orderData) {
+        const url = "/orders";
+        console.log("📡 Order URL:", url);
+        console.log("📤 Order data:", orderData);
+
+        try {
+            const res = await this.api.post(url, orderData);
+            console.log("✅ Order created:", res.data);
+            return res.data;
+        } catch (error) {
+            console.error("❌ Order API xatolik:", error.response?.data || error.message);
+            throw error;
+        }
+    }
 }
 
-// To'g'ri yaratamiz
 const productService = new ProductService(axiosInstance);
 export default productService;

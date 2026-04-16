@@ -18,11 +18,11 @@ const categories = [
 
 const navItems = [
   { label: "Home", to: "/" },
-  { label: "Category" },
-  { label: "Products" },
-  { label: "Pages" },
-  { label: "Blog" },
-  { label: "Elements" },
+  { label: "Category", to: "/products" },
+  { label: "Products", to: "/products" },
+  { label: "Pages", to: "/products" },
+  { label: "Blog", to: "/blog" },
+  { label: "Elements", to: "/faq" },
 ];
 
 const Navbar = () => {
@@ -286,10 +286,10 @@ const Navbar = () => {
               )}
             </div>
 
-            <div className="flex items-center gap-1 cursor-pointer pr-4">
+            <Link to="/cart" className="flex items-center gap-1 pr-4">
               <Korsine className="w-6 h-6 duration-200 text-black hover:text-[#7C5334] cursor-pointer" />
               <p className="text-[#000000] text-[15px] font-medium">Cart</p>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
